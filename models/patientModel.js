@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const doctorSchema =  new mongoose.Schema(
+const patientSchema = new mongoose.Schema(
     {
         firstName : {
             type : String,
@@ -20,12 +20,6 @@ const doctorSchema =  new mongoose.Schema(
             lowercase: true,
             trim: true,
         },
-        password : {
-            type : String,
-            required : [true,'Password is a mandatory field'],
-            select : false,
-            max : 25,
-        },
         phone: {
             type: String,
             required: true,
@@ -41,28 +35,60 @@ const doctorSchema =  new mongoose.Schema(
         role: {
             type: String,
             required: true,
-            default: "doctor",
+            default: "patient",
         },
-        specialization: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'doctorSpecialization'
-        },
-        yearsOfExperience: {
-            type: Number,
-            required: true,
-            min: 0,
-            max: 99,
-        },
-        age: {
-            type: Number,
-            required: true,
-            min: 10,
-            max: 99,
+        dateOfBirth: {
+            type: Date,
+            required: true
         },
         gender: {
+            type: String,
+            enum: ['male', 'female', 'others']
+        },
+        isPregnant: {
+            type: Boolean,
+            required: function(){
+                return this.gender == 'female'
+            }
+        },
+        diabetes: {
+            type: Boolean,
+            required: true,
+        },
+        diabetesValue: {
+            type: Number,
+            required: function() {
+                return this.diabetes === true
+            }
+        },
+        bloodPressure: {
+            type: Boolean,
+            required: true,
+        },
+        bloodPressureValue: {
+            type: Number,
+            required: function() {
+                return this.diabetes === true;
+            }
+        },
+        historyOfSurgery: {
+            type: Boolean,
+            required: true,
+        },
+        surgeryDescription: {
+            type: String,
+        },
+        city: {
             type: String, 
             required: true,
-            enum: ['male', 'female', 'others']
+        },
+        occupation: {
+            type: String, 
+            required: true
+        },
+        slot: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'slots'
         }
     },
     {
@@ -70,4 +96,5 @@ const doctorSchema =  new mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model.doctorSchema || mongoose.model('doctors', doctorSchema)
+
+module.exports = mongoose.model.patientSchema || mongoose.model('patients', patientSchema)

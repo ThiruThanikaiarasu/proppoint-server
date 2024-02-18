@@ -5,6 +5,7 @@ const { PORT, DB} = require('./configuration/config')
 const connect = require('./database/connection')
 const adminRoute = require('./routes/adminRoute')
 const patientRoute = require('./routes/patientRoute')
+const doctorRoute = require('./routes/doctorRoute')
 
 const cors = require('cors')
 const morgan = require('morgan')
@@ -20,6 +21,7 @@ app.get('/', (request, response) => {
 
 app.use('/api/v1/admin', adminRoute)
 app.use('/api/v1/patient', patientRoute)
+app.use('/api/v1/doctor', doctorRoute)
 
 connect()
     .then( () => {

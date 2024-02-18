@@ -5,7 +5,7 @@ const doctorSpecialization = new mongoose.Schema(
         type : {
             type : String,
             required : [true, 'Specialization is a mandatory filed'],
-            unique: true
+            // unique: true
         }
     }
 )
