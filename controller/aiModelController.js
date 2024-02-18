@@ -57,7 +57,7 @@ const prioritizeQueue = () => {
   });
 }
 
-prioritizeQueue()
+// prioritizeQueue()
 
 const getADayBeforeDay = (date) => {
   const startDateString = date
